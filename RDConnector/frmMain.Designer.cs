@@ -44,6 +44,8 @@
             this.statusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.pingTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lbl_Path = new System.Windows.Forms.Label();
+            this.llb_Path = new System.Windows.Forms.LinkLabel();
             this.pnl_Header.SuspendLayout();
             this.cms_ServerListFunctions.SuspendLayout();
             this.SuspendLayout();
@@ -73,6 +75,7 @@
             this.btn_Exit.TabIndex = 1;
             this.btn_Exit.Text = "❌";
             this.btn_Exit.UseVisualStyleBackColor = false;
+            this.btn_Exit.Click += new System.EventHandler(this.btn_Exit_Click);
             // 
             // btn_Minimized
             // 
@@ -84,6 +87,7 @@
             this.btn_Minimized.TabIndex = 2;
             this.btn_Minimized.Text = "⛔️";
             this.btn_Minimized.UseVisualStyleBackColor = false;
+            this.btn_Minimized.Click += new System.EventHandler(this.btn_Minimized_Click);
             // 
             // lbol_Title
             // 
@@ -118,6 +122,7 @@
             this.btn_LoadServer.TabIndex = 2;
             this.btn_LoadServer.Text = "Load Server List";
             this.btn_LoadServer.UseVisualStyleBackColor = false;
+            this.btn_LoadServer.Click += new System.EventHandler(this.btn_LoadServer_Click);
             // 
             // btn_ExportList
             // 
@@ -151,6 +156,7 @@
             this.btn_About.TabIndex = 3;
             this.btn_About.Text = "❗️";
             this.btn_About.UseVisualStyleBackColor = false;
+            this.btn_About.Click += new System.EventHandler(this.btn_About_Click);
             // 
             // cms_ServerListFunctions
             // 
@@ -189,12 +195,37 @@
             this.pingTestToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
             this.pingTestToolStripMenuItem.Text = "Ping Test";
             // 
+            // lbl_Path
+            // 
+            this.lbl_Path.AutoSize = true;
+            this.lbl_Path.ForeColor = System.Drawing.Color.White;
+            this.lbl_Path.Location = new System.Drawing.Point(12, 421);
+            this.lbl_Path.Name = "lbl_Path";
+            this.lbl_Path.Size = new System.Drawing.Size(74, 13);
+            this.lbl_Path.TabIndex = 5;
+            this.lbl_Path.Text = "Selected File: ";
+            // 
+            // llb_Path
+            // 
+            this.llb_Path.ActiveLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.llb_Path.AutoSize = true;
+            this.llb_Path.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.llb_Path.Location = new System.Drawing.Point(92, 421);
+            this.llb_Path.Name = "llb_Path";
+            this.llb_Path.Size = new System.Drawing.Size(44, 13);
+            this.llb_Path.TabIndex = 6;
+            this.llb_Path.TabStop = true;
+            this.llb_Path.Text = "Nothing";
+            this.llb_Path.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llb_Path_LinkClicked);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.llb_Path);
+            this.Controls.Add(this.lbl_Path);
             this.Controls.Add(this.lbl_ComingSoon);
             this.Controls.Add(this.btn_ExportList);
             this.Controls.Add(this.btn_LoadServer);
@@ -229,6 +260,8 @@
         private System.Windows.Forms.ToolStripMenuItem statusToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem pingTestToolStripMenuItem;
+        private System.Windows.Forms.Label lbl_Path;
+        private System.Windows.Forms.LinkLabel llb_Path;
     }
 }
 
