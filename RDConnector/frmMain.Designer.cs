@@ -183,6 +183,7 @@
             this.btn_EditServer.Name = "btn_EditServer";
             this.btn_EditServer.Size = new System.Drawing.Size(169, 22);
             this.btn_EditServer.Text = "Edit Server";
+            this.btn_EditServer.Click += new System.EventHandler(this.btn_EditServer_Click);
             // 
             // btn_LoadServer
             // 
@@ -273,6 +274,7 @@
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "RD Connector";
+            this.Load += new System.EventHandler(this.frmMain_Load);
             this.pnl_Header.ResumeLayout(false);
             this.pnl_Header.PerformLayout();
             this.cms_ServerListFunctions.ResumeLayout(false);

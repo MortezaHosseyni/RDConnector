@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using RDConnector.Classes;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Net.NetworkInformation;
@@ -12,10 +13,32 @@ namespace RDConnector
     {
         private Point offset;
         string serverListPath = @"";
+        public Server Server { get; set; }
 
         public frmMain()
         {
             InitializeComponent();
+        }
+
+        private void frmMain_Load(object sender, System.EventArgs e)
+        {
+            if (Server != null)
+            {
+                serverListPath = Server.File;
+                foreach (string line in File.ReadAllLines(Server.File))
+                {
+                    string[] parts = line.Split(';');
+                    string[] addressParts = parts[0].Split('@');
+                    string ip = addressParts[0].Split(':')[0];
+                    int port = int.Parse(addressParts[0].Split(':')[1]);
+
+                    string username = parts[0].Split('\\')[1];
+                    string password = parts[1];
+
+                    lbx_ServerList.Items.Add($"{ip}:{port}|{username}|{password}");
+                }
+                lbx_ServerList.Items[Server.Index] = $"{Server.ServerName}:{Server.Port}|{Server.Username}|{Server.Password}";
+            }
         }
 
         #region Header
@@ -165,6 +188,24 @@ namespace RDConnector
 
                 MessageBox.Show("Good servers list saved successfully!", "Saved!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private void btn_EditServer_Click(object sender, System.EventArgs e)
+        {
+            frmEditServer edit = new frmEditServer();
+            var server = new Server()
+            {
+                Index = lbx_ServerList.SelectedIndex,
+                ServerName = lbx_ServerList.SelectedItem.ToString().Split('|')[0].Split(':')[0],
+                Port = lbx_ServerList.SelectedItem.ToString().Split('|')[0].Split(':')[1],
+                Username = lbx_ServerList.SelectedItem.ToString().Split('|')[1],
+                Password = lbx_ServerList.SelectedItem.ToString().Split('|')[2],
+                File = serverListPath
+            };
+
+            edit.Server = server;
+
+            edit.Show();
         }
     }
 }
