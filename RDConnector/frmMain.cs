@@ -65,8 +65,23 @@ namespace RDConnector
 
             if (serverList.ShowDialog() == DialogResult.OK && File.Exists(serverList.FileName))
             {
+                lbx_ServerList.Items.Clear();
                 llb_Path.Text = serverList.SafeFileName;
                 serverListPath = serverList.FileName;
+
+                foreach (string line in File.ReadAllLines(serverList.FileName))
+                {
+                    string[] parts = line.Split('@');
+                    string[] addressParts = parts[0].Split(':');
+                    string ip = addressParts[0];
+                    int port = int.Parse(addressParts[1]);
+
+                    string[] credentials = parts[1].Split(';');
+                    string username = credentials[0].Split('\\')[1];
+                    string password = credentials[1];
+
+                    lbx_ServerList.Items.Add($"{ip}:{port}|{username}|{password}");
+                }
             }
         }
 
@@ -82,5 +97,16 @@ namespace RDConnector
             }
         }
         #endregion
+
+        private void btn_PingTest_Click(object sender, System.EventArgs e)
+        {
+            if (lbx_ServerList.SelectedItem == null)
+            {
+                return;
+            }
+            frmPing pingSection = new frmPing();
+            pingSection.serverAddress = lbx_ServerList.SelectedItem.ToString().Split('|')[0];
+            pingSection.Show();
+        }
     }
 }

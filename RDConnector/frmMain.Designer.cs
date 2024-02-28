@@ -40,10 +40,10 @@
             this.lbl_ComingSoon = new System.Windows.Forms.Label();
             this.btn_About = new System.Windows.Forms.Button();
             this.cms_ServerListFunctions = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.connectToServerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.statusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-            this.pingTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btn_ConnectToServer = new System.Windows.Forms.ToolStripMenuItem();
+            this.btn_ServerStatus = new System.Windows.Forms.ToolStripMenuItem();
+            this.lbl_Divider = new System.Windows.Forms.ToolStripSeparator();
+            this.btn_PingTest = new System.Windows.Forms.ToolStripMenuItem();
             this.lbl_Path = new System.Windows.Forms.Label();
             this.llb_Path = new System.Windows.Forms.LinkLabel();
             this.pnl_Header.SuspendLayout();
@@ -103,13 +103,15 @@
             // lbx_ServerList
             // 
             this.lbx_ServerList.BackColor = System.Drawing.Color.Black;
-            this.lbx_ServerList.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.lbx_ServerList.ContextMenuStrip = this.cms_ServerListFunctions;
+            this.lbx_ServerList.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.lbx_ServerList.ForeColor = System.Drawing.Color.Lime;
             this.lbx_ServerList.FormattingEnabled = true;
-            this.lbx_ServerList.ItemHeight = 16;
+            this.lbx_ServerList.HorizontalScrollbar = true;
+            this.lbx_ServerList.ItemHeight = 20;
             this.lbx_ServerList.Location = new System.Drawing.Point(12, 78);
             this.lbx_ServerList.Name = "lbx_ServerList";
-            this.lbx_ServerList.Size = new System.Drawing.Size(295, 340);
+            this.lbx_ServerList.Size = new System.Drawing.Size(379, 344);
             this.lbx_ServerList.TabIndex = 1;
             // 
             // btn_LoadServer
@@ -128,11 +130,11 @@
             // 
             this.btn_ExportList.BackColor = System.Drawing.Color.Black;
             this.btn_ExportList.ForeColor = System.Drawing.Color.Yellow;
-            this.btn_ExportList.Location = new System.Drawing.Point(154, 46);
+            this.btn_ExportList.Location = new System.Drawing.Point(238, 46);
             this.btn_ExportList.Name = "btn_ExportList";
             this.btn_ExportList.Size = new System.Drawing.Size(153, 26);
             this.btn_ExportList.TabIndex = 3;
-            this.btn_ExportList.Text = "Export List";
+            this.btn_ExportList.Text = "Ping List";
             this.btn_ExportList.UseVisualStyleBackColor = false;
             // 
             // lbl_ComingSoon
@@ -162,44 +164,48 @@
             // 
             this.cms_ServerListFunctions.BackColor = System.Drawing.Color.Black;
             this.cms_ServerListFunctions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.connectToServerToolStripMenuItem,
-            this.statusToolStripMenuItem,
-            this.toolStripMenuItem1,
-            this.pingTestToolStripMenuItem});
+            this.btn_ConnectToServer,
+            this.btn_ServerStatus,
+            this.lbl_Divider,
+            this.btn_PingTest});
             this.cms_ServerListFunctions.Name = "cms_ServerListFunctions";
             this.cms_ServerListFunctions.Size = new System.Drawing.Size(170, 76);
             // 
-            // connectToServerToolStripMenuItem
+            // btn_ConnectToServer
             // 
-            this.connectToServerToolStripMenuItem.ForeColor = System.Drawing.Color.Lime;
-            this.connectToServerToolStripMenuItem.Name = "connectToServerToolStripMenuItem";
-            this.connectToServerToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-            this.connectToServerToolStripMenuItem.Text = "Connect To Server";
+            this.btn_ConnectToServer.ForeColor = System.Drawing.Color.Lime;
+            this.btn_ConnectToServer.ImageTransparentColor = System.Drawing.Color.Black;
+            this.btn_ConnectToServer.Name = "btn_ConnectToServer";
+            this.btn_ConnectToServer.Size = new System.Drawing.Size(169, 22);
+            this.btn_ConnectToServer.Text = "Connect To Server";
             // 
-            // statusToolStripMenuItem
+            // btn_ServerStatus
             // 
-            this.statusToolStripMenuItem.ForeColor = System.Drawing.Color.Lime;
-            this.statusToolStripMenuItem.Name = "statusToolStripMenuItem";
-            this.statusToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-            this.statusToolStripMenuItem.Text = "Status";
+            this.btn_ServerStatus.ForeColor = System.Drawing.Color.Lime;
+            this.btn_ServerStatus.ImageTransparentColor = System.Drawing.Color.Black;
+            this.btn_ServerStatus.Name = "btn_ServerStatus";
+            this.btn_ServerStatus.Size = new System.Drawing.Size(169, 22);
+            this.btn_ServerStatus.Text = "Status";
             // 
-            // toolStripMenuItem1
+            // lbl_Divider
             // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(166, 6);
+            this.lbl_Divider.Name = "lbl_Divider";
+            this.lbl_Divider.Size = new System.Drawing.Size(166, 6);
             // 
-            // pingTestToolStripMenuItem
+            // btn_PingTest
             // 
-            this.pingTestToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.pingTestToolStripMenuItem.Name = "pingTestToolStripMenuItem";
-            this.pingTestToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-            this.pingTestToolStripMenuItem.Text = "Ping Test";
+            this.btn_PingTest.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.btn_PingTest.ImageTransparentColor = System.Drawing.Color.Black;
+            this.btn_PingTest.Name = "btn_PingTest";
+            this.btn_PingTest.Size = new System.Drawing.Size(169, 22);
+            this.btn_PingTest.Text = "Ping Test";
+            this.btn_PingTest.Click += new System.EventHandler(this.btn_PingTest_Click);
             // 
             // lbl_Path
             // 
             this.lbl_Path.AutoSize = true;
             this.lbl_Path.ForeColor = System.Drawing.Color.White;
-            this.lbl_Path.Location = new System.Drawing.Point(12, 421);
+            this.lbl_Path.Location = new System.Drawing.Point(12, 426);
             this.lbl_Path.Name = "lbl_Path";
             this.lbl_Path.Size = new System.Drawing.Size(74, 13);
             this.lbl_Path.TabIndex = 5;
@@ -210,7 +216,7 @@
             this.llb_Path.ActiveLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.llb_Path.AutoSize = true;
             this.llb_Path.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.llb_Path.Location = new System.Drawing.Point(92, 421);
+            this.llb_Path.Location = new System.Drawing.Point(92, 426);
             this.llb_Path.Name = "llb_Path";
             this.llb_Path.Size = new System.Drawing.Size(44, 13);
             this.llb_Path.TabIndex = 6;
@@ -256,10 +262,10 @@
         private System.Windows.Forms.Label lbl_ComingSoon;
         private System.Windows.Forms.Button btn_About;
         private System.Windows.Forms.ContextMenuStrip cms_ServerListFunctions;
-        private System.Windows.Forms.ToolStripMenuItem connectToServerToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem statusToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem pingTestToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem btn_ConnectToServer;
+        private System.Windows.Forms.ToolStripMenuItem btn_ServerStatus;
+        private System.Windows.Forms.ToolStripSeparator lbl_Divider;
+        private System.Windows.Forms.ToolStripMenuItem btn_PingTest;
         private System.Windows.Forms.Label lbl_Path;
         private System.Windows.Forms.LinkLabel llb_Path;
     }
