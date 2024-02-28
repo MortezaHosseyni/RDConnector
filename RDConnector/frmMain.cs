@@ -207,5 +207,21 @@ namespace RDConnector
 
             edit.Show();
         }
+
+        private void btn_ConnectToServer_Click(object sender, System.EventArgs e)
+        {
+            string hostName = lbx_ServerList.SelectedItem.ToString().Split('|')[0];
+            string username = lbx_ServerList.SelectedItem.ToString().Split('|')[1];
+            string password = lbx_ServerList.SelectedItem.ToString().Split('|')[2];
+
+            ProcessStartInfo cmdKeyProcessInfo = new ProcessStartInfo("cmdkey", $"/generic:TERMSRV/{hostName} /user:{username} /pass:{password}");
+            Process cmdKeyProcess = Process.Start(cmdKeyProcessInfo);
+            cmdKeyProcess.WaitForExit();
+
+            string arguments = $"/v:{hostName}";
+
+            ProcessStartInfo rdcProcessInfo = new ProcessStartInfo("mstsc.exe", arguments);
+            Process.Start(rdcProcessInfo);
+        }
     }
 }
