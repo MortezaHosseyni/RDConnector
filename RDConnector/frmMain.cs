@@ -1,6 +1,9 @@
 ﻿using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Net.NetworkInformation;
+using System.Net.Sockets;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace RDConnector
@@ -71,14 +74,13 @@ namespace RDConnector
 
                 foreach (string line in File.ReadAllLines(serverList.FileName))
                 {
-                    string[] parts = line.Split('@');
-                    string[] addressParts = parts[0].Split(':');
-                    string ip = addressParts[0];
-                    int port = int.Parse(addressParts[1]);
+                    string[] parts = line.Split(';');
+                    string[] addressParts = parts[0].Split('@');
+                    string ip = addressParts[0].Split(':')[0];
+                    int port = int.Parse(addressParts[0].Split(':')[1]);
 
-                    string[] credentials = parts[1].Split(';');
-                    string username = credentials[0].Split('\\')[1];
-                    string password = credentials[1];
+                    string username = parts[0].Split('\\')[1];
+                    string password = parts[1];
 
                     lbx_ServerList.Items.Add($"{ip}:{port}|{username}|{password}");
                 }
@@ -98,6 +100,7 @@ namespace RDConnector
         }
         #endregion
 
+        #region Pinging
         private void btn_PingTest_Click(object sender, System.EventArgs e)
         {
             if (lbx_ServerList.SelectedItem == null)
@@ -106,7 +109,62 @@ namespace RDConnector
             }
             frmPing pingSection = new frmPing();
             pingSection.serverAddress = lbx_ServerList.SelectedItem.ToString().Split('|')[0];
-            pingSection.Show();
+            pingSection.ShowDialog();
+        }
+
+        private async void btn_PingList_Click(object sender, System.EventArgs e)
+        {
+            for (int i = 0; i < lbx_ServerList.Items.Count; i++)
+            {
+                string address = lbx_ServerList.Items[i].ToString().Split('|')[0].Split(':')[0];
+                lbx_ServerList.Items[i] = lbx_ServerList.Items[i] + "|" + await PingWithPortAsync(address.Split(':')[0]);
+            }
+        }
+
+        private async Task<string> PingWithPortAsync(string hostName)
+        {
+            Ping ping = new Ping();
+            try
+            {
+                PingReply reply = await ping.SendPingAsync(hostName, 1000);
+                if (reply.Status == IPStatus.Success)
+                {
+                    return $"bytes={reply.Buffer.Length}|time={reply.RoundtripTime}ms|TTL={reply.Options.Ttl}";
+                }
+                else
+                {
+                    return $"Request timed out.";
+                }
+            }
+            catch (SocketException)
+            {
+                return $"Failed to connect";
+            }
+        }
+        #endregion
+
+        private void btn_SaveList_Click(object sender, System.EventArgs e)
+        {
+            SaveFileDialog saveServers = new SaveFileDialog();
+            saveServers.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+            saveServers.Title = "Save Good Servers";
+
+            if (saveServers.ShowDialog() == DialogResult.OK)
+            {
+                string filePath = saveServers.FileName;
+
+                ListBox.ObjectCollection items = lbx_ServerList.Items;
+
+                using (StreamWriter sw = new StreamWriter(filePath))
+                {
+                    foreach (var item in items)
+                    {
+                        sw.WriteLine(item.ToString());
+                    }
+                }
+
+                MessageBox.Show("Good servers list saved successfully!", "Saved!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }

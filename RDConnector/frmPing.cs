@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -43,25 +44,24 @@ namespace RDConnector
 
         private async Task PingWithPortAsync(string hostName, int port, int numberOfPings)
         {
+            Ping ping = new Ping();
             for (int i = 0; i < numberOfPings; i++)
             {
-                using (TcpClient client = new TcpClient())
+                try
                 {
-                    try
+                    PingReply reply = await ping.SendPingAsync(hostName, 1000);
+                    if (reply.Status == IPStatus.Success)
                     {
-                        var stopwatch = new System.Diagnostics.Stopwatch();
-                        stopwatch.Start();
-                        await client.ConnectAsync(hostName, port);
-                        stopwatch.Stop();
-                        var pingTime = stopwatch.ElapsedMilliseconds;
-                        var ttl = client.Client.Ttl;
-
-                        AppendLog($"Ping {i + 1}: Connected to {hostName}:{port} *** RTT: {pingTime}ms *** TTL: {ttl}");
+                        AppendLog($"Ping {i + 1}: Reply from {reply.Address}: bytes={reply.Buffer.Length} time={reply.RoundtripTime}ms TTL={reply.Options.Ttl}");
                     }
-                    catch (SocketException ex)
+                    else
                     {
-                        AppendLog($"Ping {i + 1}: Failed to connect to {hostName}:{port} *** {ex.Message}");
+                        AppendLog($"Ping {i + 1}: Request timed out.");
                     }
+                }
+                catch (SocketException ex)
+                {
+                    AppendLog($"Ping {i + 1}: Failed to connect to {hostName}:{port} *** {ex.Message}");
                 }
             }
         }

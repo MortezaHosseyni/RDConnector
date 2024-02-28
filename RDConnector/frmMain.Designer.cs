@@ -31,21 +31,24 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.pnl_Header = new System.Windows.Forms.Panel();
-            this.btn_Exit = new System.Windows.Forms.Button();
-            this.btn_Minimized = new System.Windows.Forms.Button();
-            this.lbol_Title = new System.Windows.Forms.Label();
-            this.lbx_ServerList = new System.Windows.Forms.ListBox();
-            this.btn_LoadServer = new System.Windows.Forms.Button();
-            this.btn_ExportList = new System.Windows.Forms.Button();
-            this.lbl_ComingSoon = new System.Windows.Forms.Label();
             this.btn_About = new System.Windows.Forms.Button();
+            this.lbol_Title = new System.Windows.Forms.Label();
+            this.btn_Minimized = new System.Windows.Forms.Button();
+            this.btn_Exit = new System.Windows.Forms.Button();
+            this.lbx_ServerList = new System.Windows.Forms.ListBox();
             this.cms_ServerListFunctions = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.btn_ConnectToServer = new System.Windows.Forms.ToolStripMenuItem();
             this.btn_ServerStatus = new System.Windows.Forms.ToolStripMenuItem();
             this.lbl_Divider = new System.Windows.Forms.ToolStripSeparator();
             this.btn_PingTest = new System.Windows.Forms.ToolStripMenuItem();
+            this.lbl_Divider2 = new System.Windows.Forms.ToolStripSeparator();
+            this.btn_EditServer = new System.Windows.Forms.ToolStripMenuItem();
+            this.btn_LoadServer = new System.Windows.Forms.Button();
+            this.btn_PingList = new System.Windows.Forms.Button();
+            this.lbl_ComingSoon = new System.Windows.Forms.Label();
             this.lbl_Path = new System.Windows.Forms.Label();
             this.llb_Path = new System.Windows.Forms.LinkLabel();
+            this.btn_SaveList = new System.Windows.Forms.Button();
             this.pnl_Header.SuspendLayout();
             this.cms_ServerListFunctions.SuspendLayout();
             this.SuspendLayout();
@@ -65,17 +68,28 @@
             this.pnl_Header.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pnl_Header_MouseMove);
             this.pnl_Header.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pnl_Header_MouseUp);
             // 
-            // btn_Exit
+            // btn_About
             // 
-            this.btn_Exit.BackColor = System.Drawing.Color.Red;
-            this.btn_Exit.ForeColor = System.Drawing.Color.White;
-            this.btn_Exit.Location = new System.Drawing.Point(769, 0);
-            this.btn_Exit.Name = "btn_Exit";
-            this.btn_Exit.Size = new System.Drawing.Size(31, 31);
-            this.btn_Exit.TabIndex = 1;
-            this.btn_Exit.Text = "❌";
-            this.btn_Exit.UseVisualStyleBackColor = false;
-            this.btn_Exit.Click += new System.EventHandler(this.btn_Exit_Click);
+            this.btn_About.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.btn_About.ForeColor = System.Drawing.Color.White;
+            this.btn_About.Location = new System.Drawing.Point(693, 0);
+            this.btn_About.Name = "btn_About";
+            this.btn_About.Size = new System.Drawing.Size(31, 31);
+            this.btn_About.TabIndex = 3;
+            this.btn_About.Text = "❗️";
+            this.btn_About.UseVisualStyleBackColor = false;
+            this.btn_About.Click += new System.EventHandler(this.btn_About_Click);
+            // 
+            // lbol_Title
+            // 
+            this.lbol_Title.AutoSize = true;
+            this.lbol_Title.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.lbol_Title.ForeColor = System.Drawing.Color.GhostWhite;
+            this.lbol_Title.Location = new System.Drawing.Point(5, 6);
+            this.lbol_Title.Name = "lbol_Title";
+            this.lbol_Title.Size = new System.Drawing.Size(111, 20);
+            this.lbol_Title.TabIndex = 1;
+            this.lbol_Title.Text = "RD Connector";
             // 
             // btn_Minimized
             // 
@@ -89,76 +103,31 @@
             this.btn_Minimized.UseVisualStyleBackColor = false;
             this.btn_Minimized.Click += new System.EventHandler(this.btn_Minimized_Click);
             // 
-            // lbol_Title
+            // btn_Exit
             // 
-            this.lbol_Title.AutoSize = true;
-            this.lbol_Title.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.lbol_Title.ForeColor = System.Drawing.Color.GhostWhite;
-            this.lbol_Title.Location = new System.Drawing.Point(5, 6);
-            this.lbol_Title.Name = "lbol_Title";
-            this.lbol_Title.Size = new System.Drawing.Size(111, 20);
-            this.lbol_Title.TabIndex = 1;
-            this.lbol_Title.Text = "RD Connector";
+            this.btn_Exit.BackColor = System.Drawing.Color.Red;
+            this.btn_Exit.ForeColor = System.Drawing.Color.White;
+            this.btn_Exit.Location = new System.Drawing.Point(769, 0);
+            this.btn_Exit.Name = "btn_Exit";
+            this.btn_Exit.Size = new System.Drawing.Size(31, 31);
+            this.btn_Exit.TabIndex = 1;
+            this.btn_Exit.Text = "❌";
+            this.btn_Exit.UseVisualStyleBackColor = false;
+            this.btn_Exit.Click += new System.EventHandler(this.btn_Exit_Click);
             // 
             // lbx_ServerList
             // 
             this.lbx_ServerList.BackColor = System.Drawing.Color.Black;
             this.lbx_ServerList.ContextMenuStrip = this.cms_ServerListFunctions;
-            this.lbx_ServerList.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.lbx_ServerList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.lbx_ServerList.ForeColor = System.Drawing.Color.Lime;
             this.lbx_ServerList.FormattingEnabled = true;
             this.lbx_ServerList.HorizontalScrollbar = true;
-            this.lbx_ServerList.ItemHeight = 20;
+            this.lbx_ServerList.ItemHeight = 15;
             this.lbx_ServerList.Location = new System.Drawing.Point(12, 78);
             this.lbx_ServerList.Name = "lbx_ServerList";
-            this.lbx_ServerList.Size = new System.Drawing.Size(379, 344);
+            this.lbx_ServerList.Size = new System.Drawing.Size(437, 334);
             this.lbx_ServerList.TabIndex = 1;
-            // 
-            // btn_LoadServer
-            // 
-            this.btn_LoadServer.BackColor = System.Drawing.Color.Black;
-            this.btn_LoadServer.ForeColor = System.Drawing.Color.Yellow;
-            this.btn_LoadServer.Location = new System.Drawing.Point(12, 46);
-            this.btn_LoadServer.Name = "btn_LoadServer";
-            this.btn_LoadServer.Size = new System.Drawing.Size(136, 26);
-            this.btn_LoadServer.TabIndex = 2;
-            this.btn_LoadServer.Text = "Load Server List";
-            this.btn_LoadServer.UseVisualStyleBackColor = false;
-            this.btn_LoadServer.Click += new System.EventHandler(this.btn_LoadServer_Click);
-            // 
-            // btn_ExportList
-            // 
-            this.btn_ExportList.BackColor = System.Drawing.Color.Black;
-            this.btn_ExportList.ForeColor = System.Drawing.Color.Yellow;
-            this.btn_ExportList.Location = new System.Drawing.Point(238, 46);
-            this.btn_ExportList.Name = "btn_ExportList";
-            this.btn_ExportList.Size = new System.Drawing.Size(153, 26);
-            this.btn_ExportList.TabIndex = 3;
-            this.btn_ExportList.Text = "Ping List";
-            this.btn_ExportList.UseVisualStyleBackColor = false;
-            // 
-            // lbl_ComingSoon
-            // 
-            this.lbl_ComingSoon.AutoSize = true;
-            this.lbl_ComingSoon.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.lbl_ComingSoon.ForeColor = System.Drawing.Color.GhostWhite;
-            this.lbl_ComingSoon.Location = new System.Drawing.Point(517, 209);
-            this.lbl_ComingSoon.Name = "lbl_ComingSoon";
-            this.lbl_ComingSoon.Size = new System.Drawing.Size(117, 20);
-            this.lbl_ComingSoon.TabIndex = 3;
-            this.lbl_ComingSoon.Text = "Coming Soon...";
-            // 
-            // btn_About
-            // 
-            this.btn_About.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.btn_About.ForeColor = System.Drawing.Color.White;
-            this.btn_About.Location = new System.Drawing.Point(693, 0);
-            this.btn_About.Name = "btn_About";
-            this.btn_About.Size = new System.Drawing.Size(31, 31);
-            this.btn_About.TabIndex = 3;
-            this.btn_About.Text = "❗️";
-            this.btn_About.UseVisualStyleBackColor = false;
-            this.btn_About.Click += new System.EventHandler(this.btn_About_Click);
             // 
             // cms_ServerListFunctions
             // 
@@ -167,9 +136,11 @@
             this.btn_ConnectToServer,
             this.btn_ServerStatus,
             this.lbl_Divider,
-            this.btn_PingTest});
+            this.btn_PingTest,
+            this.lbl_Divider2,
+            this.btn_EditServer});
             this.cms_ServerListFunctions.Name = "cms_ServerListFunctions";
-            this.cms_ServerListFunctions.Size = new System.Drawing.Size(170, 76);
+            this.cms_ServerListFunctions.Size = new System.Drawing.Size(170, 104);
             // 
             // btn_ConnectToServer
             // 
@@ -201,6 +172,53 @@
             this.btn_PingTest.Text = "Ping Test";
             this.btn_PingTest.Click += new System.EventHandler(this.btn_PingTest_Click);
             // 
+            // lbl_Divider2
+            // 
+            this.lbl_Divider2.Name = "lbl_Divider2";
+            this.lbl_Divider2.Size = new System.Drawing.Size(166, 6);
+            // 
+            // btn_EditServer
+            // 
+            this.btn_EditServer.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.btn_EditServer.Name = "btn_EditServer";
+            this.btn_EditServer.Size = new System.Drawing.Size(169, 22);
+            this.btn_EditServer.Text = "Edit Server";
+            // 
+            // btn_LoadServer
+            // 
+            this.btn_LoadServer.BackColor = System.Drawing.Color.Black;
+            this.btn_LoadServer.ForeColor = System.Drawing.Color.Yellow;
+            this.btn_LoadServer.Location = new System.Drawing.Point(12, 46);
+            this.btn_LoadServer.Name = "btn_LoadServer";
+            this.btn_LoadServer.Size = new System.Drawing.Size(136, 26);
+            this.btn_LoadServer.TabIndex = 2;
+            this.btn_LoadServer.Text = "Load Server List";
+            this.btn_LoadServer.UseVisualStyleBackColor = false;
+            this.btn_LoadServer.Click += new System.EventHandler(this.btn_LoadServer_Click);
+            // 
+            // btn_PingList
+            // 
+            this.btn_PingList.BackColor = System.Drawing.Color.Black;
+            this.btn_PingList.ForeColor = System.Drawing.Color.Yellow;
+            this.btn_PingList.Location = new System.Drawing.Point(296, 46);
+            this.btn_PingList.Name = "btn_PingList";
+            this.btn_PingList.Size = new System.Drawing.Size(153, 26);
+            this.btn_PingList.TabIndex = 3;
+            this.btn_PingList.Text = "Ping List";
+            this.btn_PingList.UseVisualStyleBackColor = false;
+            this.btn_PingList.Click += new System.EventHandler(this.btn_PingList_Click);
+            // 
+            // lbl_ComingSoon
+            // 
+            this.lbl_ComingSoon.AutoSize = true;
+            this.lbl_ComingSoon.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.lbl_ComingSoon.ForeColor = System.Drawing.Color.GhostWhite;
+            this.lbl_ComingSoon.Location = new System.Drawing.Point(568, 211);
+            this.lbl_ComingSoon.Name = "lbl_ComingSoon";
+            this.lbl_ComingSoon.Size = new System.Drawing.Size(117, 20);
+            this.lbl_ComingSoon.TabIndex = 3;
+            this.lbl_ComingSoon.Text = "Coming Soon...";
+            // 
             // lbl_Path
             // 
             this.lbl_Path.AutoSize = true;
@@ -224,16 +242,29 @@
             this.llb_Path.Text = "Nothing";
             this.llb_Path.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llb_Path_LinkClicked);
             // 
+            // btn_SaveList
+            // 
+            this.btn_SaveList.BackColor = System.Drawing.Color.Black;
+            this.btn_SaveList.ForeColor = System.Drawing.Color.Yellow;
+            this.btn_SaveList.Location = new System.Drawing.Point(154, 46);
+            this.btn_SaveList.Name = "btn_SaveList";
+            this.btn_SaveList.Size = new System.Drawing.Size(136, 26);
+            this.btn_SaveList.TabIndex = 7;
+            this.btn_SaveList.Text = "Save List";
+            this.btn_SaveList.UseVisualStyleBackColor = false;
+            this.btn_SaveList.Click += new System.EventHandler(this.btn_SaveList_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btn_SaveList);
             this.Controls.Add(this.llb_Path);
             this.Controls.Add(this.lbl_Path);
             this.Controls.Add(this.lbl_ComingSoon);
-            this.Controls.Add(this.btn_ExportList);
+            this.Controls.Add(this.btn_PingList);
             this.Controls.Add(this.btn_LoadServer);
             this.Controls.Add(this.lbx_ServerList);
             this.Controls.Add(this.pnl_Header);
@@ -258,7 +289,7 @@
         private System.Windows.Forms.Label lbol_Title;
         private System.Windows.Forms.ListBox lbx_ServerList;
         private System.Windows.Forms.Button btn_LoadServer;
-        private System.Windows.Forms.Button btn_ExportList;
+        private System.Windows.Forms.Button btn_PingList;
         private System.Windows.Forms.Label lbl_ComingSoon;
         private System.Windows.Forms.Button btn_About;
         private System.Windows.Forms.ContextMenuStrip cms_ServerListFunctions;
@@ -268,6 +299,9 @@
         private System.Windows.Forms.ToolStripMenuItem btn_PingTest;
         private System.Windows.Forms.Label lbl_Path;
         private System.Windows.Forms.LinkLabel llb_Path;
+        private System.Windows.Forms.Button btn_SaveList;
+        private System.Windows.Forms.ToolStripSeparator lbl_Divider2;
+        private System.Windows.Forms.ToolStripMenuItem btn_EditServer;
     }
 }
 
