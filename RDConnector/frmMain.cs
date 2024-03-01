@@ -14,31 +14,11 @@ namespace RDConnector
         private Point offset;
         string serverListPath = @"";
         public Server Server { get; set; }
+        public Server EditedServer { get; set; }
 
         public frmMain()
         {
             InitializeComponent();
-        }
-
-        private void frmMain_Load(object sender, System.EventArgs e)
-        {
-            if (Server != null)
-            {
-                serverListPath = Server.File;
-                foreach (string line in File.ReadAllLines(Server.File))
-                {
-                    string[] parts = line.Split(';');
-                    string[] addressParts = parts[0].Split('@');
-                    string ip = addressParts[0].Split(':')[0];
-                    int port = int.Parse(addressParts[0].Split(':')[1]);
-
-                    string username = parts[0].Split('\\')[1];
-                    string password = parts[1];
-
-                    lbx_ServerList.Items.Add($"{ip}:{port}|{username}|{password}");
-                }
-                lbx_ServerList.Items[Server.Index] = $"{Server.ServerName}:{Server.Port}|{Server.Username}|{Server.Password}";
-            }
         }
 
         #region Header
@@ -192,7 +172,7 @@ namespace RDConnector
 
         private void btn_EditServer_Click(object sender, System.EventArgs e)
         {
-            frmEditServer edit = new frmEditServer();
+            frmEditServer edit = new frmEditServer(this);
             var server = new Server()
             {
                 Index = lbx_ServerList.SelectedIndex,
@@ -222,6 +202,14 @@ namespace RDConnector
 
             ProcessStartInfo rdcProcessInfo = new ProcessStartInfo("mstsc.exe", arguments);
             Process.Start(rdcProcessInfo);
+        }
+
+        private void frmMain_Activated(object sender, System.EventArgs e)
+        {
+            if (EditedServer != null)
+            {
+                lbx_ServerList.Items[EditedServer.Index] = $"{EditedServer.ServerName}:{EditedServer.Port}|{EditedServer.Username}|{EditedServer.Password}";
+            }
         }
     }
 }

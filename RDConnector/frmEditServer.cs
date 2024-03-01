@@ -6,10 +6,13 @@ namespace RDConnector
 {
     public partial class frmEditServer : Form
     {
+        private readonly frmMain _mainForm;
+
         public Server Server { get; set; }
-        public frmEditServer()
+        public frmEditServer(frmMain mainForm)
         {
             InitializeComponent();
+            _mainForm = mainForm;
         }
 
         private void frmEditServer_Load(object sender, EventArgs e)
@@ -27,8 +30,7 @@ namespace RDConnector
 
         private void btn_Save_Click(object sender, EventArgs e)
         {
-            frmMain main = new frmMain();
-            main.Server = new Server()
+            var model = new Server()
             {
                 Index = Server.Index,
                 ServerName = txt_Server.Text,
@@ -37,7 +39,8 @@ namespace RDConnector
                 Password = txt_Password.Text,
                 File = Server.File
             };
-            main.ShowDialog();
+            _mainForm.EditedServer = model;
+            Close();
         }
     }
 }

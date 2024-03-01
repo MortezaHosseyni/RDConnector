@@ -94,7 +94,7 @@
             this.btn_Save.Size = new System.Drawing.Size(31, 29);
             this.btn_Save.TabIndex = 4;
             this.btn_Save.Text = "💾";
-            this.ttp_ToolStrip.SetToolTip(this.btn_Save, "Re-Ping server");
+            this.ttp_ToolStrip.SetToolTip(this.btn_Save, "Save ping log");
             this.btn_Save.UseVisualStyleBackColor = false;
             this.btn_Save.Click += new System.EventHandler(this.btn_Save_Click);
             // 

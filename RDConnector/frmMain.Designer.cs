@@ -140,14 +140,14 @@
             this.lbl_Divider2,
             this.btn_EditServer});
             this.cms_ServerListFunctions.Name = "cms_ServerListFunctions";
-            this.cms_ServerListFunctions.Size = new System.Drawing.Size(181, 126);
+            this.cms_ServerListFunctions.Size = new System.Drawing.Size(170, 104);
             // 
             // btn_ConnectToServer
             // 
             this.btn_ConnectToServer.ForeColor = System.Drawing.Color.Lime;
             this.btn_ConnectToServer.ImageTransparentColor = System.Drawing.Color.Black;
             this.btn_ConnectToServer.Name = "btn_ConnectToServer";
-            this.btn_ConnectToServer.Size = new System.Drawing.Size(180, 22);
+            this.btn_ConnectToServer.Size = new System.Drawing.Size(169, 22);
             this.btn_ConnectToServer.Text = "Connect To Server";
             this.btn_ConnectToServer.Click += new System.EventHandler(this.btn_ConnectToServer_Click);
             // 
@@ -156,33 +156,33 @@
             this.btn_ServerStatus.ForeColor = System.Drawing.Color.Lime;
             this.btn_ServerStatus.ImageTransparentColor = System.Drawing.Color.Black;
             this.btn_ServerStatus.Name = "btn_ServerStatus";
-            this.btn_ServerStatus.Size = new System.Drawing.Size(180, 22);
+            this.btn_ServerStatus.Size = new System.Drawing.Size(169, 22);
             this.btn_ServerStatus.Text = "Status";
             // 
             // lbl_Divider
             // 
             this.lbl_Divider.Name = "lbl_Divider";
-            this.lbl_Divider.Size = new System.Drawing.Size(177, 6);
+            this.lbl_Divider.Size = new System.Drawing.Size(166, 6);
             // 
             // btn_PingTest
             // 
             this.btn_PingTest.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.btn_PingTest.ImageTransparentColor = System.Drawing.Color.Black;
             this.btn_PingTest.Name = "btn_PingTest";
-            this.btn_PingTest.Size = new System.Drawing.Size(180, 22);
+            this.btn_PingTest.Size = new System.Drawing.Size(169, 22);
             this.btn_PingTest.Text = "Ping Test";
             this.btn_PingTest.Click += new System.EventHandler(this.btn_PingTest_Click);
             // 
             // lbl_Divider2
             // 
             this.lbl_Divider2.Name = "lbl_Divider2";
-            this.lbl_Divider2.Size = new System.Drawing.Size(177, 6);
+            this.lbl_Divider2.Size = new System.Drawing.Size(166, 6);
             // 
             // btn_EditServer
             // 
             this.btn_EditServer.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.btn_EditServer.Name = "btn_EditServer";
-            this.btn_EditServer.Size = new System.Drawing.Size(180, 22);
+            this.btn_EditServer.Size = new System.Drawing.Size(169, 22);
             this.btn_EditServer.Text = "Edit Server";
             this.btn_EditServer.Click += new System.EventHandler(this.btn_EditServer_Click);
             // 
@@ -275,7 +275,7 @@
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "RD Connector";
-            this.Load += new System.EventHandler(this.frmMain_Load);
+            this.Activated += new System.EventHandler(this.frmMain_Activated);
             this.pnl_Header.ResumeLayout(false);
             this.pnl_Header.PerformLayout();
             this.cms_ServerListFunctions.ResumeLayout(false);
