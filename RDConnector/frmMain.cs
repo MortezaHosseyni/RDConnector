@@ -1,4 +1,5 @@
-﻿using RDConnector.Classes;
+﻿using FreeRDP.Core;
+using RDConnector.Classes;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -150,7 +151,7 @@ namespace RDConnector
         {
             SaveFileDialog saveServers = new SaveFileDialog();
             saveServers.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
-            saveServers.Title = "Save Good Servers";
+            saveServers.Title = "Save Servers";
 
             if (saveServers.ShowDialog() == DialogResult.OK)
             {
@@ -166,7 +167,7 @@ namespace RDConnector
                     }
                 }
 
-                MessageBox.Show("Good servers list saved successfully!", "Saved!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Servers list saved successfully!", "Saved!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -190,18 +191,37 @@ namespace RDConnector
 
         private void btn_ConnectToServer_Click(object sender, System.EventArgs e)
         {
-            string hostName = lbx_ServerList.SelectedItem.ToString().Split('|')[0];
-            string username = lbx_ServerList.SelectedItem.ToString().Split('|')[1];
-            string password = lbx_ServerList.SelectedItem.ToString().Split('|')[2];
+            // Extract server details from the selected item in lbx_ServerList
+            string selectedItem = lbx_ServerList.SelectedItem.ToString();
+            string hostName = selectedItem.Split('|')[0].Split(':')[0];
+            int port = int.Parse(selectedItem.Split('|')[0].Split(':')[1]);
+            string username = selectedItem.Split('|')[1];
+            string domain = selectedItem.Split('|')[1].Split('\\')[0];
+            string password = selectedItem.Split('|')[2];
 
-            ProcessStartInfo cmdKeyProcessInfo = new ProcessStartInfo("cmdkey", $"/generic:TERMSRV/{hostName} /user:{username} /pass:{password}");
-            Process cmdKeyProcess = Process.Start(cmdKeyProcessInfo);
-            cmdKeyProcess.WaitForExit();
+            try
+            {
+                using (var client = new RDP())
+                {
+                    client.Connect(hostName, domain, username, password, port);
 
-            string arguments = $"/v:{hostName}";
+                    if (client.Connected)
+                    {
+                        ProcessStartInfo cmdKeyProcessInfo = new ProcessStartInfo("cmdkey", $"/generic:TERMSRV/{hostName} /user:{username} /pass:{password}");
+                        Process cmdKeyProcess = Process.Start(cmdKeyProcessInfo);
+                        cmdKeyProcess.WaitForExit();
 
-            ProcessStartInfo rdcProcessInfo = new ProcessStartInfo("mstsc.exe", arguments);
-            Process.Start(rdcProcessInfo);
+                        string arguments = $"/v:{hostName}";
+
+                        ProcessStartInfo rdcProcessInfo = new ProcessStartInfo("mstsc", arguments);
+                        Process.Start(rdcProcessInfo);
+                    }
+                }
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show($"Error while connecting:\n{ex.Message}\n-------\n{ex.InnerException}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void frmMain_Activated(object sender, System.EventArgs e)
@@ -209,6 +229,66 @@ namespace RDConnector
             if (EditedServer != null)
             {
                 lbx_ServerList.Items[EditedServer.Index] = $"{EditedServer.ServerName}:{EditedServer.Port}|{EditedServer.Username}|{EditedServer.Password}";
+            }
+        }
+
+        private async void btn_CheckServers_Click(object sender, System.EventArgs e)
+        {
+            if (lbx_ServerList.Items.Count <= 0)
+            {
+                MessageBox.Show("Servers list is empty!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            foreach (var item in lbx_ServerList.Items)
+            {
+                string hostName = item.ToString().Split('|')[0].Split(':')[0];
+                int port = int.Parse(item.ToString().Split('|')[0].Split(':')[1]);
+                string username = item.ToString().Split('|')[1];
+                string domain = item.ToString().Split('|')[1].Split('\\')[0];
+                string password = item.ToString().Split('|')[2];
+
+                await Task.Run(() => ctx_CheckServerStatus.Text = $"Check '{hostName}'");
+
+                try
+                {
+                    using (var client = new RDP())
+                    {
+                        await Task.Run(() => client.Connect(hostName, domain, username, password, port));
+
+                        if (client.Connected)
+                        {
+                            await Task.Run(() => lbx_GoodServers.Items.Add(item));
+                        }
+                    }
+                }
+                catch (System.Exception) {}
+            }
+
+            await Task.Run(() => ctx_CheckServerStatus.Text = "All servers checked.");
+        }
+
+        private void btn_SaveGood_Click(object sender, System.EventArgs e)
+        {
+            SaveFileDialog saveServers = new SaveFileDialog();
+            saveServers.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+            saveServers.Title = "Save Good Servers";
+
+            if (saveServers.ShowDialog() == DialogResult.OK)
+            {
+                string filePath = saveServers.FileName;
+
+                ListBox.ObjectCollection items = lbx_GoodServers.Items;
+
+                using (StreamWriter sw = new StreamWriter(filePath))
+                {
+                    foreach (var item in items)
+                    {
+                        sw.WriteLine(item.ToString());
+                    }
+                }
+
+                MessageBox.Show("Good servers list saved successfully!", "Saved!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }

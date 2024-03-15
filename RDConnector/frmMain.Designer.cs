@@ -45,10 +45,13 @@
             this.btn_EditServer = new System.Windows.Forms.ToolStripMenuItem();
             this.btn_LoadServer = new System.Windows.Forms.Button();
             this.btn_PingList = new System.Windows.Forms.Button();
-            this.lbl_ComingSoon = new System.Windows.Forms.Label();
             this.lbl_Path = new System.Windows.Forms.Label();
             this.llb_Path = new System.Windows.Forms.LinkLabel();
             this.btn_SaveList = new System.Windows.Forms.Button();
+            this.lbx_GoodServers = new System.Windows.Forms.ListBox();
+            this.btn_CheckServers = new System.Windows.Forms.Button();
+            this.btn_SaveGood = new System.Windows.Forms.Button();
+            this.ctx_CheckServerStatus = new System.Windows.Forms.Label();
             this.pnl_Header.SuspendLayout();
             this.cms_ServerListFunctions.SuspendLayout();
             this.SuspendLayout();
@@ -210,17 +213,6 @@
             this.btn_PingList.UseVisualStyleBackColor = false;
             this.btn_PingList.Click += new System.EventHandler(this.btn_PingList_Click);
             // 
-            // lbl_ComingSoon
-            // 
-            this.lbl_ComingSoon.AutoSize = true;
-            this.lbl_ComingSoon.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.lbl_ComingSoon.ForeColor = System.Drawing.Color.GhostWhite;
-            this.lbl_ComingSoon.Location = new System.Drawing.Point(568, 211);
-            this.lbl_ComingSoon.Name = "lbl_ComingSoon";
-            this.lbl_ComingSoon.Size = new System.Drawing.Size(117, 20);
-            this.lbl_ComingSoon.TabIndex = 3;
-            this.lbl_ComingSoon.Text = "Coming Soon...";
-            // 
             // lbl_Path
             // 
             this.lbl_Path.AutoSize = true;
@@ -256,16 +248,65 @@
             this.btn_SaveList.UseVisualStyleBackColor = false;
             this.btn_SaveList.Click += new System.EventHandler(this.btn_SaveList_Click);
             // 
+            // lbx_GoodServers
+            // 
+            this.lbx_GoodServers.BackColor = System.Drawing.Color.Black;
+            this.lbx_GoodServers.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.lbx_GoodServers.ForeColor = System.Drawing.Color.Lime;
+            this.lbx_GoodServers.FormattingEnabled = true;
+            this.lbx_GoodServers.HorizontalScrollbar = true;
+            this.lbx_GoodServers.ItemHeight = 15;
+            this.lbx_GoodServers.Location = new System.Drawing.Point(455, 78);
+            this.lbx_GoodServers.Name = "lbx_GoodServers";
+            this.lbx_GoodServers.Size = new System.Drawing.Size(333, 334);
+            this.lbx_GoodServers.TabIndex = 8;
+            // 
+            // btn_CheckServers
+            // 
+            this.btn_CheckServers.BackColor = System.Drawing.Color.Black;
+            this.btn_CheckServers.ForeColor = System.Drawing.Color.Cyan;
+            this.btn_CheckServers.Location = new System.Drawing.Point(455, 46);
+            this.btn_CheckServers.Name = "btn_CheckServers";
+            this.btn_CheckServers.Size = new System.Drawing.Size(136, 26);
+            this.btn_CheckServers.TabIndex = 9;
+            this.btn_CheckServers.Text = "Check Servers";
+            this.btn_CheckServers.UseVisualStyleBackColor = false;
+            this.btn_CheckServers.Click += new System.EventHandler(this.btn_CheckServers_Click);
+            // 
+            // btn_SaveGood
+            // 
+            this.btn_SaveGood.BackColor = System.Drawing.Color.Black;
+            this.btn_SaveGood.ForeColor = System.Drawing.Color.Cyan;
+            this.btn_SaveGood.Location = new System.Drawing.Point(597, 46);
+            this.btn_SaveGood.Name = "btn_SaveGood";
+            this.btn_SaveGood.Size = new System.Drawing.Size(136, 26);
+            this.btn_SaveGood.TabIndex = 10;
+            this.btn_SaveGood.Text = "Save Good Servers";
+            this.btn_SaveGood.UseVisualStyleBackColor = false;
+            this.btn_SaveGood.Click += new System.EventHandler(this.btn_SaveGood_Click);
+            // 
+            // ctx_CheckServerStatus
+            // 
+            this.ctx_CheckServerStatus.AutoSize = true;
+            this.ctx_CheckServerStatus.ForeColor = System.Drawing.Color.White;
+            this.ctx_CheckServerStatus.Location = new System.Drawing.Point(452, 426);
+            this.ctx_CheckServerStatus.Name = "ctx_CheckServerStatus";
+            this.ctx_CheckServerStatus.Size = new System.Drawing.Size(0, 13);
+            this.ctx_CheckServerStatus.TabIndex = 11;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.ctx_CheckServerStatus);
+            this.Controls.Add(this.btn_SaveGood);
+            this.Controls.Add(this.btn_CheckServers);
+            this.Controls.Add(this.lbx_GoodServers);
             this.Controls.Add(this.btn_SaveList);
             this.Controls.Add(this.llb_Path);
             this.Controls.Add(this.lbl_Path);
-            this.Controls.Add(this.lbl_ComingSoon);
             this.Controls.Add(this.btn_PingList);
             this.Controls.Add(this.btn_LoadServer);
             this.Controls.Add(this.lbx_ServerList);
@@ -293,7 +334,6 @@
         private System.Windows.Forms.ListBox lbx_ServerList;
         private System.Windows.Forms.Button btn_LoadServer;
         private System.Windows.Forms.Button btn_PingList;
-        private System.Windows.Forms.Label lbl_ComingSoon;
         private System.Windows.Forms.Button btn_About;
         private System.Windows.Forms.ContextMenuStrip cms_ServerListFunctions;
         private System.Windows.Forms.ToolStripMenuItem btn_ConnectToServer;
@@ -305,6 +345,10 @@
         private System.Windows.Forms.Button btn_SaveList;
         private System.Windows.Forms.ToolStripSeparator lbl_Divider2;
         private System.Windows.Forms.ToolStripMenuItem btn_EditServer;
+        private System.Windows.Forms.ListBox lbx_GoodServers;
+        private System.Windows.Forms.Button btn_CheckServers;
+        private System.Windows.Forms.Button btn_SaveGood;
+        private System.Windows.Forms.Label ctx_CheckServerStatus;
     }
 }
 
