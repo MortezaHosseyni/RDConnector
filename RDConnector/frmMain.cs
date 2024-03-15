@@ -191,7 +191,6 @@ namespace RDConnector
 
         private void btn_ConnectToServer_Click(object sender, System.EventArgs e)
         {
-            // Extract server details from the selected item in lbx_ServerList
             string selectedItem = lbx_ServerList.SelectedItem.ToString();
             string hostName = selectedItem.Split('|')[0].Split(':')[0];
             int port = int.Parse(selectedItem.Split('|')[0].Split(':')[1]);
@@ -289,6 +288,40 @@ namespace RDConnector
                 }
 
                 MessageBox.Show("Good servers list saved successfully!", "Saved!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void lbx_GoodServers_DoubleClick(object sender, System.EventArgs e)
+        {
+            string selectedItem = lbx_GoodServers.SelectedItem.ToString();
+            string hostName = selectedItem.Split('|')[0].Split(':')[0];
+            int port = int.Parse(selectedItem.Split('|')[0].Split(':')[1]);
+            string username = selectedItem.Split('|')[1];
+            string domain = selectedItem.Split('|')[1].Split('\\')[0];
+            string password = selectedItem.Split('|')[2];
+
+            try
+            {
+                using (var client = new RDP())
+                {
+                    client.Connect(hostName, domain, username, password, port);
+
+                    if (client.Connected)
+                    {
+                        ProcessStartInfo cmdKeyProcessInfo = new ProcessStartInfo("cmdkey", $"/generic:TERMSRV/{hostName} /user:{username} /pass:{password}");
+                        Process cmdKeyProcess = Process.Start(cmdKeyProcessInfo);
+                        cmdKeyProcess.WaitForExit();
+
+                        string arguments = $"/v:{hostName}";
+
+                        ProcessStartInfo rdcProcessInfo = new ProcessStartInfo("mstsc", arguments);
+                        Process.Start(rdcProcessInfo);
+                    }
+                }
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show($"Error while connecting:\n{ex.Message}\n-------\n{ex.InnerException}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

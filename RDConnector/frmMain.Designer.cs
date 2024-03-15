@@ -252,7 +252,7 @@
             // 
             this.lbx_GoodServers.BackColor = System.Drawing.Color.Black;
             this.lbx_GoodServers.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.lbx_GoodServers.ForeColor = System.Drawing.Color.Lime;
+            this.lbx_GoodServers.ForeColor = System.Drawing.Color.Cyan;
             this.lbx_GoodServers.FormattingEnabled = true;
             this.lbx_GoodServers.HorizontalScrollbar = true;
             this.lbx_GoodServers.ItemHeight = 15;
@@ -260,6 +260,7 @@
             this.lbx_GoodServers.Name = "lbx_GoodServers";
             this.lbx_GoodServers.Size = new System.Drawing.Size(333, 334);
             this.lbx_GoodServers.TabIndex = 8;
+            this.lbx_GoodServers.DoubleClick += new System.EventHandler(this.lbx_GoodServers_DoubleClick);
             // 
             // btn_CheckServers
             // 
